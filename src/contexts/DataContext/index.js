@@ -17,8 +17,10 @@ export const api = {
 };
 
 export const DataProvider = ({ children }) => {
+
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
@@ -26,17 +28,23 @@ export const DataProvider = ({ children }) => {
       setError(err);
     }
   }, []);
+
   useEffect(() => {
     if (data) return;
     getData();
   });
   
+const last = data?.events?.sort((a, b) => 
+  new Date(b.date) - new Date(a.date)
+)[0]
+// On récupère le dernier événement en triant les événements par date décroissante et en prenant le premier élément du tableau trié.
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         error,
+        last, // Dernier événement
       }}
     >
       {children}

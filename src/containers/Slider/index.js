@@ -8,11 +8,11 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? 1 : -1 // Le tri est dans le mauvais sens
+    new Date(evtA.date) < new Date(evtB.date) ? 1 : -1 // tri du plus récent au plus ancien (était inversé)
   );
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0), // Le slider ne s'arrete pas a la dernière image 
+      () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0), // On enlève -1 pour ne pas sauter la dernière image
       5000
     );
   };
@@ -45,7 +45,7 @@ const Slider = () => {
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx} // les petit boules
+                  checked={index === radioIdx} // index = la slide affichée, pas idx qui est l'index de la boucle
                 />
               ))}
             </div>

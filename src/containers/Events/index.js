@@ -17,7 +17,7 @@ const EventList = () => {
   const filteredEvents = (
     (!type
       ? data?.events
-      : data?.events.filter((event)=>event.type===type)) || [] // modification 
+      : data?.events.filter((event)=>event.type===type)) || [] // Filtre les events par type quand une catégorie est choisie
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
